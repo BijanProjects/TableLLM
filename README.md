@@ -98,6 +98,32 @@ The following is a sample response from the final fine-tuned model:
 The prompt used for the final fine-tuning process is shown below:
 ![alt text](image-10.png)
 
+## Performance on the HiTab dataset
+### Qwen-2.5-7B-Instruct
+To assess the performance of the fine-tuned Qwen-2.5-7B-Instruct model on samples from outside of its fine-tuning dataset, it was tested on the HiTab dataset against the base version of the model. But that had its own set of challenges. 
+
+The FinQA dataset, for example, had a lot of contextual information in the form of text before and after each table for every sample. In comparison, the HiTab dataset didn't have any added context outside of the tables. So, the model only had the question and the table to work with. This significant difference in structure also meant that, for this dataset, the model would need a prompt structure that's different to the one that was used during the final fine-tuning process. 
+
+Another matter of concern was that the FinQA dataset was focused entirely on reasoning tasks from financial data, whereas the HiTab dataset was designed for different types of question-answering and data-to-text tasks from data belonging to a wide variety of domains, not just Finance. To address this, 50 random numerical or logical reasoning samples were chosen from the HiTab dataset to test the models on. It should be noted that the samples were not specifically financial. The rationale behind not restricting the samples to just financial ones was the idea that the models would be strong enough to pick up on the reasoning aspects of the tasks during the fine-tuning process without hyperfixating on the financial nature of the data. This proved to be true as will be shown in the results below.
+
+#### Results
+> Number of test samples: 50
+
+Correctly answered questions:
+* Base model: 22 out of 50
+* Fine-Tuned model: 37 out of 50
+
+Evaluation metrics for the fine-tuned model:
+* RougeL F1 score: 0.44
+* Cosine Similarity score: 0.52
+
+> The evaluation metrics were only calculated for the final answer, since the HiTab dataset doesn't have any reference text to measure the correctness of the reasoning steps.
+
+Here, the results seem to indicate that the fine-tuned model performs better at reasoning tasks than the base model. The fine-tuned model also consistently generated responses with uniform formatting, as was specified in the fine-tuning process, whereas the base model always generated needlessly verbose ones. The only area where the base model performed better were with samples that had non-numerical or non-boolean answers.
+
+#### Prompt
+Below is the prompt that was used for evaluating both the base and fine-tuned versions of the model on the HiTab dataset:
+![alt text](image-12.png)
 
 ## Links:
 * [Fine-Tuned Qwen-2.5-7B-Instruct](https://huggingface.co/n3Er/qwen2.5-7b-instruct-finqa-ht)
