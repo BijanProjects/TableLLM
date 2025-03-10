@@ -15,18 +15,30 @@ We started with prompt engineering to assess the capabilities of the base models
 
 ## Datasets
 The FinQA dataset by IBM had been chosen for prompt engineering and fine-tuning the chosen LLMs, as it had a reasonably large number of samples, each with a table, contextual text, a question, the reasoning steps needed to answer the question, and the final calculated answer.
+
 ![alt text](image.png)
+
 For testing purposes, we made two custom version of the dataset, one containing an extra field that has the reasoning steps shown in the program field in postfix notaion, while the other has the extra field showing the reasoning steps in infix notation.
 
 The HiTab dataset, which is a Hierarchical tabular dataset made for question-answering and data-to-text tasks, has been used for analysing the performance of the fine-tuned models.
+
 ![alt text](image-1.png)
 
 
 ## Prompt Engineering
 We have explored many different prompting techniques for this project. The following yielded the best results:
-1) Few shot prompting [please add some description for this!]
-2) Chain of thought prompting
-3) Self-Consistency prompting
+1) Few shot learning
+2) Chain of thought
+3) Self-Consistency
+
+### Few shot Learning
+We first started by 1-shot learning and after trying a few number of examples; we tunned the 5-shot learning as the best scenario to try as it has a balance between the prompt-length and performance enahncement of the Llama-3.1-8B-instruct model. The Ollama library was used to import the LLM and generate responses.
+
+#### Prompt Structure
+![alt text](image-10.png)
+
+#### Results
+RougeL Score: 0.55
 
 ### Chain of thought
 Chain of thought prompting has been used with the Qwen-2.5-7B-Instruct model and the following are the prompts and results:
